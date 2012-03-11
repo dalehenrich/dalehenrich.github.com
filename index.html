@@ -6,14 +6,19 @@ title: Dale Henrichs
 <html> 
   <head> 
     <title>Dale Henrichs</title> 
-    <script src="amber/js/amber.js" type="text/javascript"></script>
+    <script src="js/amber.js" type="text/javascript"></script>
   </head>
   <body>
     <p>Hi there, world. This page will eventually be completely powered by 
       <a href="http://amber-lang.net/">Amber Smalltalk</a></p>
     <p>For now you will have to be satisfied by bringing up 
       the <b><button onClick="smalltalk.Browser._open()">Amber Class browser</button></b></p>
-    <script type='text/javascript'> loadAmber() </script> 
+    <script type='text/javascript'> loadAmber({
+        files: [],
+        prefix: 'github/js',
+        ready: function() {
+
+        }}) </script> 
 
     <div id="footer">
       Powered by:</br>
