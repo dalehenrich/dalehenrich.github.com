@@ -4,6 +4,7 @@
     <script src="js/amber.js" type="text/javascript"></script>
   </head>
   <body>
+
     <p>Hi there, world. This page will eventually be completely powered by 
       <a href="http://amber-lang.net/">Amber Smalltalk</a></p>
     <p>For now you will have to be satisfied by bringing up 
@@ -21,7 +22,9 @@
         files: ['GitHubPage.js'],
         prefix: 'js',
         ready: function() {
-
+          $(function() {
+            smalltalk.GitHubPage._new();
+          });
         }}) </script>
    
   </body> 
