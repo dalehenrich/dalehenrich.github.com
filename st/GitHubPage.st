@@ -14,7 +14,7 @@ initialize
 
 renderOn: html
 
-	html p with: [:h | 
+	html p with: [:h |  
 		h with: 'Hi there, world. This page is powered by '.
                 h 
                         a href: 'http://amber-lang.net/'; 
@@ -27,10 +27,10 @@ renderOn: html
                         with: 'Amber-powered Smaltalk tutorial'.
                  h with: ' right in your own browser!!'].
              html p with: [:h |
-                 h with: 'If you want to see how this is done, ' .
+                 h with: 'If you want to see how this is done: ' .
                  h
-                        a 
-                                with: 'browse the ', self class name, ' class';
+                        button
+                                with: 'Browse the ', self class name, ' class';
                                 onClick: [ Browser openOn: self class ].
     		h with: '.']
 ! !
