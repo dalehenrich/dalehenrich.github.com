@@ -1,13 +1,26 @@
 Smalltalk current createPackage: 'GitHubPage' properties: #{}!
 Widget subclass: #GitHubPage
-	instanceVariableNames: ''
+	instanceVariableNames: 'username'
 	category: 'GitHubPage'!
+
+!GitHubPage methodsFor: 'accessing'!
+
+username
+
+	^username
+!
+
+username: aString
+
+	username := aString
+! !
 
 !GitHubPage methodsFor: 'initialization'!
 
 initialize
-    super initialize.
-    self appendToJQuery: 'body' asJQuery
+    	super initialize.
+	username := 'dalehenrich'.
+    	self appendToJQuery: 'body' asJQuery
 ! !
 
 !GitHubPage methodsFor: 'rendering'!
@@ -33,13 +46,23 @@ renderOn: html
                                 with: 'Browse the ', self class name, ' class';
                                 onClick: [ Browser openOn: self class ].
     		h with: '.'].
-        html p: 'Under Construction'.
 	html strong: 'Repositories'.
 	jQuery 
-		ajax: 'https://api.github.com/user/repos'
+		ajax: 'https://api.github.com/users/', self username, '/repos'
 		options: #{	
 			'type' -> 'GET'.
-			'success' -> [ html p: 'fake repository' ].
+			'success' -> [:repositoryData :status :jqXHR | self renderRepositories: repositoryData On: html  ].
      			'error' ->[html p: 'none found' ]}
+!
+
+renderRepositories: repositoryData On: html
+
+	html ul: [
+		repositoryData do: [:repo | 
+			html p: [
+				html 
+					strong: repo name;
+					with: ' - ';
+					with: repo description ]]]
 ! !
 
