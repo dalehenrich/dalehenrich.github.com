@@ -1,24 +1,6 @@
 smalltalk.addPackage('GitHubPage', {});
 smalltalk.addClass('GitHubPage', smalltalk.Widget, ['username'], 'GitHubPage');
 smalltalk.addMethod(
-unescape('_initialize'),
-smalltalk.method({
-selector: unescape('initialize'),
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Widget);
-(self['@username']="dalehenrich");
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
-return self;},
-args: [],
-source: unescape('initialize%0A%20%20%20%20%09super%20initialize.%0A%09username%20%3A%3D%20%27dalehenrich%27.%0A%20%20%20%20%09self%20appendToJQuery%3A%20%27body%27%20asJQuery'),
-messageSends: ["initialize", "appendToJQuery:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.GitHubPage);
-
-smalltalk.addMethod(
 unescape('_renderOn_'),
 smalltalk.method({
 selector: unescape('renderOn%3A'),
@@ -86,5 +68,21 @@ referencedClasses: []
 }),
 smalltalk.GitHubPage);
 
+
+smalltalk.addMethod(
+unescape('_openOn_'),
+smalltalk.method({
+selector: unescape('openOn%3A'),
+category: 'instance creation',
+fn: function (aString){
+var self=this;
+(function($rec){smalltalk.send($rec, "_username_", [aString]);return smalltalk.send($rec, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aString"],
+source: unescape('openOn%3A%20aString%0A%0A%09%28self%20new%29%0A%09%09username%3A%20aString%3B%0A%20%20%20%20%20%20%20%20%20%20%09appendToJQuery%3A%20%27body%27%20asJQuery'),
+messageSends: ["username:", "appendToJQuery:", "asJQuery", "new"],
+referencedClasses: []
+}),
+smalltalk.GitHubPage.klass);
 
 

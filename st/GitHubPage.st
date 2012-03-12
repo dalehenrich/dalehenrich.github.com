@@ -15,14 +15,6 @@ username: aString
 	username := aString
 ! !
 
-!GitHubPage methodsFor: 'initialization'!
-
-initialize
-    	super initialize.
-	username := 'dalehenrich'.
-    	self appendToJQuery: 'body' asJQuery
-! !
-
 !GitHubPage methodsFor: 'rendering'!
 
 renderOn: html
@@ -64,5 +56,14 @@ renderRepositories: repositoryData On: html
 					strong: repo name;
 					with: ' - ';
 					with: repo description ]]]
+! !
+
+!GitHubPage class methodsFor: 'instance creation'!
+
+openOn: aString
+
+	(self new)
+		username: aString;
+          	appendToJQuery: 'body' asJQuery
 ! !
 
