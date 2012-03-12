@@ -33,6 +33,7 @@ renderOn: html
                                 with: 'Browse the ', self class name, ' class';
                                 onClick: [ Browser openOn: self class ].
     		h with: '.'].
+html p: 'Here''s a walkback to prove it''s Smalltalk'.
 	html strong: 'Repositories'.
 	repo := (jQuery 
 		ajax: 'https://api.github.com/user/repos'
