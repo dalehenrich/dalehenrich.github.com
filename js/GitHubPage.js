@@ -8,14 +8,14 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 smalltalk.send(self, "_renderBodyOn_", [html]);
-smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(h){return (function($rec){smalltalk.send($rec, "_with_", ["Refresh repository list"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(div){return smalltalk.send(self, "_renderRepositories", []);})]);})]);})(smalltalk.send(h, "_button", []));})]);
+smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(h){return (function($rec){smalltalk.send($rec, "_with_", ["Refresh repository list"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(div){return smalltalk.send(self, "_getRepositories", []);})]);})]);})(smalltalk.send(h, "_button", []));})]);
 smalltalk.send(html, "_strong_", ["Repositories"]);
 (self['@repositoryDiv']=smalltalk.send(html, "_div", []));
-smalltalk.send(self, "_renderRepositories", []);
+smalltalk.send(self, "_getRepositories", []);
 return self;},
 args: ["html"],
-source: unescape('renderOn%3A%20html%0A%0A%09self%20renderBodyOn%3A%20html.%0A%20%20%20%20%20%20%20%20html%20p%20with%3A%20%5B%3Ah%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Refresh%20repository%20list%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onClick%3A%20%5B%20%20repositoryDiv%20contents%3A%20%20%5B%3Adiv%20%7C%20self%20renderRepositories%20%5D%20%5D%5D.%0A%09html%20strong%3A%20%27Repositories%27.%0A%20%20%20%20%20%09repositoryDiv%20%3A%3D%20html%20div.%0A%09self%20renderRepositories'),
-messageSends: ["renderBodyOn:", "with:", "p", "onClick:", "contents:", "renderRepositories", "button", "strong:", "div"],
+source: unescape('renderOn%3A%20html%0A%0A%09self%20renderBodyOn%3A%20html.%0A%20%20%20%20%20%20%20%20html%20p%20with%3A%20%5B%3Ah%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Refresh%20repository%20list%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onClick%3A%20%5B%20%20repositoryDiv%20contents%3A%20%20%5B%3Adiv%20%7C%20self%20getRepositories%20%5D%20%5D%5D.%0A%09html%20strong%3A%20%27Repositories%27.%0A%20%20%20%20%20%09repositoryDiv%20%3A%3D%20html%20div.%0A%09self%20getRepositories'),
+messageSends: ["renderBodyOn:", "with:", "p", "onClick:", "contents:", "getRepositories", "button", "strong:", "div"],
 referencedClasses: []
 }),
 smalltalk.GitHubPage);
@@ -89,22 +89,6 @@ referencedClasses: ["Browser"]
 smalltalk.GitHubPage);
 
 smalltalk.addMethod(
-unescape('_renderRepositories'),
-smalltalk.method({
-selector: unescape('renderRepositories'),
-category: 'rendering',
-fn: function (){
-var self=this;
-smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(unescape("https%3A//api.github.com/users/"), "__comma", [smalltalk.send(self, "_username", [])]), "__comma", [unescape("/repos")]), smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["GET"]),smalltalk.send("success", "__minus_gt", [(function(repositoryData, status, jqXHR){return smalltalk.send(self, "_renderRepositoryData_", [repositoryData]);})]),smalltalk.send("error", "__minus_gt", [(function(jqXHR, textStatus, errorThrown){return smalltalk.send(self, "_renderRepositoryError_", [errorThrown]);})])])]);
-return self;},
-args: [],
-source: unescape('renderRepositories%0A%0A%09jQuery%20%0A%09%09ajax%3A%20%27https%3A//api.github.com/users/%27%2C%20self%20username%2C%20%27/repos%27%0A%09%09options%3A%20%23%7B%09%0A%09%09%09%27type%27%20-%3E%20%27GET%27.%0A%09%09%09%27success%27%20-%3E%20%5B%3ArepositoryData%20%3Astatus%20%3AjqXHR%20%7C%20%0A%09%09%09%09self%20renderRepositoryData%3A%20repositoryData%20%5D.%0A%20%20%20%20%20%09%09%09%27error%27%20-%3E%5B%3AjqXHR%20%3AtextStatus%20%3AerrorThrown%20%7C%20%0A%09%09%09%09self%20renderRepositoryError%3A%20errorThrown%20%20%5D%7D.%0A%09%0A'),
-messageSends: ["ajax:options:", unescape("%2C"), "username", unescape("-%3E"), "renderRepositoryData:", "renderRepositoryError:"],
-referencedClasses: []
-}),
-smalltalk.GitHubPage);
-
-smalltalk.addMethod(
 unescape('_renderRepositoryData_'),
 smalltalk.method({
 selector: unescape('renderRepositoryData%3A'),
@@ -133,6 +117,22 @@ return self;},
 args: ["errorThrown"],
 source: unescape('renderRepositoryError%3A%20errorThrown%0A%0A%09repositoryDiv%20contents%3A%20%5B%3A%20html%20%7C%0A%09%09html%20%20with%3A%20errorThrown%20%5D%0A%0A%0A'),
 messageSends: ["contents:", "with:"],
+referencedClasses: []
+}),
+smalltalk.GitHubPage);
+
+smalltalk.addMethod(
+unescape('_getRepositories'),
+smalltalk.method({
+selector: unescape('getRepositories'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(unescape("https%3A//api.github.com/users/"), "__comma", [smalltalk.send(self, "_username", [])]), "__comma", [unescape("/repos")]), smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["GET"]),smalltalk.send("success", "__minus_gt", [(function(repositoryData, status, jqXHR){return smalltalk.send(self, "_renderRepositoryData_", [repositoryData]);})]),smalltalk.send("error", "__minus_gt", [(function(jqXHR, textStatus, errorThrown){return smalltalk.send(self, "_renderRepositoryError_", [smalltalk.send(jqXHR, "_responseText", [])]);})])])]);
+return self;},
+args: [],
+source: unescape('getRepositories%0A%0A%09jQuery%20%0A%09%09ajax%3A%20%27https%3A//api.github.com/users/%27%2C%20self%20username%2C%20%27/repos%27%0A%09%09options%3A%20%23%7B%09%0A%09%09%09%27type%27%20-%3E%20%27GET%27.%0A%09%09%09%27success%27%20-%3E%20%5B%3ArepositoryData%20%3Astatus%20%3AjqXHR%20%7C%20%0A%09%09%09%09self%20renderRepositoryData%3A%20repositoryData%20%5D.%0A%20%20%20%20%20%09%09%09%27error%27%20-%3E%5B%3AjqXHR%20%3AtextStatus%20%3AerrorThrown%20%7C%20%0A%09%09%09%09self%20renderRepositoryError%3A%20jqXHR%20responseText%20%20%5D%7D.%0A%09%0A'),
+messageSends: ["ajax:options:", unescape("%2C"), "username", unescape("-%3E"), "renderRepositoryData:", "renderRepositoryError:", "responseText"],
 referencedClasses: []
 }),
 smalltalk.GitHubPage);

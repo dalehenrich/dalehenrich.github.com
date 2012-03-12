@@ -66,10 +66,10 @@ renderOn: html
                  h
                         button
                                 with: 'Refresh repository list';
-                                onClick: [  repositoryDiv contents:  [:div | self renderRepositories ] ]].
+                                onClick: [  repositoryDiv contents:  [:div | self getRepositories ] ]].
 	html strong: 'Repositories'.
      	repositoryDiv := html div.
-	self renderRepositories
+	self getRepositories
 !
 
 renderBodyOn: html
@@ -102,18 +102,6 @@ renderBodyOn: html
 	html p: 'If I were any kind of a web developer (Smalltalk is my game) this page would look a lot prettier.'.
 !
 
-renderRepositories
-
-	jQuery 
-		ajax: 'https://api.github.com/users/', self username, '/repos'
-		options: #{	
-			'type' -> 'GET'.
-			'success' -> [:repositoryData :status :jqXHR | 
-				self renderRepositoryData: repositoryData ].
-     			'error' ->[:jqXHR :textStatus :errorThrown | 
-				self renderRepositoryError: errorThrown  ]}.
-!
-
 renderRepositoryData: repositoryData
 
 	| homepage |
@@ -140,6 +128,18 @@ renderRepositoryError: errorThrown
 
 	repositoryDiv contents: [: html |
 		html  with: errorThrown ]
+!
+
+getRepositories
+
+	jQuery 
+		ajax: 'https://api.github.com/users/', self username, '/repos'
+		options: #{	
+			'type' -> 'GET'.
+			'success' -> [:repositoryData :status :jqXHR | 
+				self renderRepositoryData: repositoryData ].
+     			'error' ->[:jqXHR :textStatus :errorThrown | 
+				self renderRepositoryError: jqXHR responseText  ]}.
 ! !
 
 !GitHubPage class methodsFor: 'instance creation'!
