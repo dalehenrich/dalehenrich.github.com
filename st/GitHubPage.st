@@ -93,7 +93,9 @@ renderOn: html
 		options: #{	
 			'type' -> 'GET'.
 			'success' -> [:repositoryData :status :jqXHR | self renderRepositories: repositoryData On: html  ].
-     			'error' ->[:jqXHR :textStatus :errorThrown | html p: 'none found: ', textStatus printString, ' : ', errorThrown printString ]}
+     			'error' ->[:jqXHR :textStatus :errorThrown | 
+				html p: 'none found: ', textStatus printString, ' : ', errorThrown printString.
+				html p: 'Works from my laptop, but not from GitHub pages???'  ]}
 !
 
 renderRepositories: repositoryData On: html
