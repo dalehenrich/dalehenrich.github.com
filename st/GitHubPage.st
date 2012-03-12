@@ -66,43 +66,10 @@ renderOn: html
                  h
                         button
                                 with: 'Refresh repository list';
-                                onClick: [  repositoryDiv contents:  [:div | self renderRepositoriesOn: div] ].
-    		h with: '.'].
+                                onClick: [  repositoryDiv contents:  [:div | self renderRepositories ] ]].
 	html strong: 'Repositories'.
-     	repositoryDiv := html div with: [:h | self renderRepositoriesOn: h ]; yourself.
-!
-
-renderRepositoriesOn: html
-
-	jQuery 
-		ajax: 'https://api.github.com/users/', self username, '/repos'
-		options: #{	
-			'type' -> 'GET'.
-			'success' -> [:repositoryData :status :jqXHR | self renderRepositoryData: repositoryData on: html  ].
-     			'error' ->[:jqXHR :textStatus :errorThrown | 
-				html p: 'none found: ', textStatus printString, ' : ', errorThrown printString.
-				html p: 'Works from my laptop, but not from GitHub pages???'  ]}.
-!
-
-renderRepositoryData: repositoryData on: html
-
-	| homepage |
-	html ul: [
-		repositoryData do: [:repo | 
-			html p: [
-				html
-                        		a href: (repo at: 'html_url'); 
-                        		with: [ html  strong: repo name ].
-				(homepage := repo homepage)
-					ifNotEmpty: [
-						html with: ' ['.
-						html
-							a href: homepage;
-							with: homepage.
-						html with: ']'].
-				html
-					with: ' - ';
-					with: repo description]]]
+     	repositoryDiv := html div.
+	self renderRepositories
 !
 
 renderBodyOn: html
@@ -133,6 +100,46 @@ renderBodyOn: html
                                 onClick: [ Browser openOn: self class ].
     		h with: '.'].
 	html p: 'If I were any kind of a web developer (Smalltalk is my game) this page would look a lot prettier.'.
+!
+
+renderRepositories
+
+	jQuery 
+		ajax: 'https://api.github.com/users/', self username, '/repos'
+		options: #{	
+			'type' -> 'GET'.
+			'success' -> [:repositoryData :status :jqXHR | 
+				self renderRepositoryData: repositoryData ].
+     			'error' ->[:jqXHR :textStatus :errorThrown | 
+				self renderRepositoryError: errorThrown  ]}.
+!
+
+renderRepositoryData: repositoryData
+
+	| homepage |
+	repositoryDiv contents: [: html |
+		html ul: [
+			repositoryData do: [:repo | 
+				html p: [
+					html
+                    		    		a href: (repo at: 'html_url'); 
+                	        		with: [ html  strong: repo name ].
+					(homepage := repo homepage)
+						ifNotEmpty: [
+							html with: ' ['.
+							html
+								a href: homepage;
+								with: homepage.
+							html with: ']'].
+					html
+						with: ' - ';
+						with: repo description]]]]
+!
+
+renderRepositoryError: errorThrown
+
+	repositoryDiv contents: [: html |
+		html  with: errorThrown ]
 ! !
 
 !GitHubPage class methodsFor: 'instance creation'!

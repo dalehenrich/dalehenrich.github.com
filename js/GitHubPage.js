@@ -8,13 +8,14 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 smalltalk.send(self, "_renderBodyOn_", [html]);
-smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(h){(function($rec){smalltalk.send($rec, "_with_", ["Refresh repository list"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(div){return smalltalk.send(self, "_renderRepositoriesOn_", [div]);})]);})]);})(smalltalk.send(h, "_button", []));return smalltalk.send(h, "_with_", ["."]);})]);
+smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(h){return (function($rec){smalltalk.send($rec, "_with_", ["Refresh repository list"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(div){return smalltalk.send(self, "_renderRepositories", []);})]);})]);})(smalltalk.send(h, "_button", []));})]);
 smalltalk.send(html, "_strong_", ["Repositories"]);
-(self['@repositoryDiv']=(function($rec){smalltalk.send($rec, "_with_", [(function(h){return smalltalk.send(self, "_renderRepositoriesOn_", [h]);})]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
+(self['@repositoryDiv']=smalltalk.send(html, "_div", []));
+smalltalk.send(self, "_renderRepositories", []);
 return self;},
 args: ["html"],
-source: unescape('renderOn%3A%20html%0A%0A%09self%20renderBodyOn%3A%20html.%0A%20%20%20%20%20%20%20%20html%20p%20with%3A%20%5B%3Ah%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Refresh%20repository%20list%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onClick%3A%20%5B%20%20repositoryDiv%20contents%3A%20%20%5B%3Adiv%20%7C%20self%20renderRepositoriesOn%3A%20div%5D%20%5D.%0A%20%20%20%20%09%09h%20with%3A%20%27.%27%5D.%0A%09html%20strong%3A%20%27Repositories%27.%0A%20%20%20%20%20%09repositoryDiv%20%3A%3D%20html%20div%20with%3A%20%5B%3Ah%20%7C%20self%20renderRepositoriesOn%3A%20h%20%5D%3B%20yourself.%0A%0A%09%0A'),
-messageSends: ["renderBodyOn:", "with:", "p", "onClick:", "contents:", "renderRepositoriesOn:", "button", "strong:", "yourself", "div"],
+source: unescape('renderOn%3A%20html%0A%0A%09self%20renderBodyOn%3A%20html.%0A%20%20%20%20%20%20%20%20html%20p%20with%3A%20%5B%3Ah%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Refresh%20repository%20list%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onClick%3A%20%5B%20%20repositoryDiv%20contents%3A%20%20%5B%3Adiv%20%7C%20self%20renderRepositories%20%5D%20%5D%5D.%0A%09html%20strong%3A%20%27Repositories%27.%0A%20%20%20%20%20%09repositoryDiv%20%3A%3D%20html%20div.%0A%09self%20renderRepositories'),
+messageSends: ["renderBodyOn:", "with:", "p", "onClick:", "contents:", "renderRepositories", "button", "strong:", "div"],
 referencedClasses: []
 }),
 smalltalk.GitHubPage);
@@ -68,39 +69,6 @@ referencedClasses: []
 smalltalk.GitHubPage);
 
 smalltalk.addMethod(
-unescape('_renderRepositoriesOn_'),
-smalltalk.method({
-selector: unescape('renderRepositoriesOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(unescape("https%3A//api.github.com/users/"), "__comma", [smalltalk.send(self, "_username", [])]), "__comma", [unescape("/repos")]), smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["GET"]),smalltalk.send("success", "__minus_gt", [(function(repositoryData, status, jqXHR){return smalltalk.send(self, "_renderRepositoryData_on_", [repositoryData, html]);})]),smalltalk.send("error", "__minus_gt", [(function(jqXHR, textStatus, errorThrown){smalltalk.send(html, "_p_", [smalltalk.send(smalltalk.send(smalltalk.send("none found: ", "__comma", [smalltalk.send(textStatus, "_printString", [])]), "__comma", [" : "]), "__comma", [smalltalk.send(errorThrown, "_printString", [])])]);return smalltalk.send(html, "_p_", [unescape("Works%20from%20my%20laptop%2C%20but%20not%20from%20GitHub%20pages%3F%3F%3F")]);})])])]);
-return self;},
-args: ["html"],
-source: unescape('renderRepositoriesOn%3A%20html%0A%0A%09jQuery%20%0A%09%09ajax%3A%20%27https%3A//api.github.com/users/%27%2C%20self%20username%2C%20%27/repos%27%0A%09%09options%3A%20%23%7B%09%0A%09%09%09%27type%27%20-%3E%20%27GET%27.%0A%09%09%09%27success%27%20-%3E%20%5B%3ArepositoryData%20%3Astatus%20%3AjqXHR%20%7C%20self%20renderRepositoryData%3A%20repositoryData%20on%3A%20html%20%20%5D.%0A%20%20%20%20%20%09%09%09%27error%27%20-%3E%5B%3AjqXHR%20%3AtextStatus%20%3AerrorThrown%20%7C%20%0A%09%09%09%09html%20p%3A%20%27none%20found%3A%20%27%2C%20textStatus%20printString%2C%20%27%20%3A%20%27%2C%20errorThrown%20printString.%0A%09%09%09%09html%20p%3A%20%27Works%20from%20my%20laptop%2C%20but%20not%20from%20GitHub%20pages%3F%3F%3F%27%20%20%5D%7D.%0A%09%0A'),
-messageSends: ["ajax:options:", unescape("%2C"), "username", unescape("-%3E"), "renderRepositoryData:on:", "p:", "printString"],
-referencedClasses: []
-}),
-smalltalk.GitHubPage);
-
-smalltalk.addMethod(
-unescape('_renderRepositoryData_on_'),
-smalltalk.method({
-selector: unescape('renderRepositoryData%3Aon%3A'),
-category: 'rendering',
-fn: function (repositoryData, html){
-var self=this;
-var homepage=nil;
-smalltalk.send(html, "_ul_", [(function(){return smalltalk.send(repositoryData, "_do_", [(function(repo){return smalltalk.send(html, "_p_", [(function(){(function($rec){smalltalk.send($rec, "_href_", [smalltalk.send(repo, "_at_", ["html_url"])]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(html, "_strong_", [smalltalk.send(repo, "_name", [])]);})]);})(smalltalk.send(html, "_a", []));smalltalk.send((homepage=smalltalk.send(repo, "_homepage", [])), "_ifNotEmpty_", [(function(){smalltalk.send(html, "_with_", [unescape("%20%5B")]);(function($rec){smalltalk.send($rec, "_href_", [homepage]);return smalltalk.send($rec, "_with_", [homepage]);})(smalltalk.send(html, "_a", []));return smalltalk.send(html, "_with_", [unescape("%5D")]);})]);return (function($rec){smalltalk.send($rec, "_with_", [unescape("%20-%20")]);return smalltalk.send($rec, "_with_", [smalltalk.send(repo, "_description", [])]);})(html);})]);})]);})]);
-return self;},
-args: ["repositoryData", "html"],
-source: unescape('renderRepositoryData%3A%20repositoryData%20on%3A%20html%0A%0A%09%7C%20homepage%20%7C%0A%09html%20ul%3A%20%5B%0A%09%09repositoryData%20do%3A%20%5B%3Arepo%20%7C%20%0A%09%09%09html%20p%3A%20%5B%0A%09%09%09%09html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09a%20href%3A%20%28repo%20at%3A%20%27html_url%27%29%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09with%3A%20%5B%20html%20%20strong%3A%20repo%20name%20%5D.%0A%09%09%09%09%28homepage%20%3A%3D%20repo%20homepage%29%0A%09%09%09%09%09ifNotEmpty%3A%20%5B%0A%09%09%09%09%09%09html%20with%3A%20%27%20%5B%27.%0A%09%09%09%09%09%09html%0A%09%09%09%09%09%09%09a%20href%3A%20homepage%3B%0A%09%09%09%09%09%09%09with%3A%20homepage.%0A%09%09%09%09%09%09html%20with%3A%20%27%5D%27%5D.%0A%09%09%09%09html%0A%09%09%09%09%09with%3A%20%27%20-%20%27%3B%0A%09%09%09%09%09with%3A%20repo%20description%5D%5D%5D%0A%0A%0A'),
-messageSends: ["ul:", "do:", "p:", "href:", "at:", "with:", "strong:", "name", "a", "ifNotEmpty:", "homepage", "description"],
-referencedClasses: []
-}),
-smalltalk.GitHubPage);
-
-smalltalk.addMethod(
 unescape('_renderBodyOn_'),
 smalltalk.method({
 selector: unescape('renderBodyOn%3A'),
@@ -117,6 +85,55 @@ args: ["html"],
 source: unescape('renderBodyOn%3A%20html%0A%0A%09html%20p%20with%3A%20%5B%3Ah%20%7C%20%20%0A%09%09h%20with%3A%20%27Hi%20there%2C%20world.%20This%20page%20is%20powered%20by%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a%20href%3A%20%27http%3A//amber-lang.net/%27%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Amber%20Smalltalk%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%20with%3A%20%27.%27%5D.%0A%20%20%20%20%20%20%20%20html%20p%20with%3A%20%5B%3Ah%20%7C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%20with%3A%20%27If%20you%27%27re%20new%20to%20Smalltalk%2C%20take%20an%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a%20href%3A%20%27amber/learn.html%27%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Amber-powered%20Smaltalk%20tutorial%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%20with%3A%20%27%20right%20in%20your%20own%20browser%21%27%5D.%0A%09html%20p%20with%3A%20%5B%3Ah%20%7C%0A%09%09h%20with%3A%20%27The%20list%20of%20repositories%20below%20is%20generated%20by%20making%20calls%20to%20the%27.%0A%09%09h%0A%09%09%09a%20href%3A%20%27http%3A//developer.github.com/%27%3B%0A%09%09%09with%3A%20%27%20GitHub%20development%20API%27.%0A%09%09h%20with%3A%20%27%20from%20Amber%20Smalltalk.%27%20%5D.%0A%20%20%20%20%20%20%20%20html%20p%20with%3A%20%5B%3Ah%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%20with%3A%20%27If%20you%20want%20to%20see%20how%20this%20is%20done%3A%20%27%20.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20h%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Browse%20the%20%27%2C%20self%20class%20name%2C%20%27%20class%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onClick%3A%20%5B%20Browser%20openOn%3A%20self%20class%20%5D.%0A%20%20%20%20%09%09h%20with%3A%20%27.%27%5D.%0A%09html%20p%3A%20%27If%20I%20were%20any%20kind%20of%20a%20web%20developer%20%28Smalltalk%20is%20my%20game%29%20this%20page%20would%20look%20a%20lot%20prettier.%27.%0A%0A%09%0A'),
 messageSends: ["with:", "p", "href:", "a", unescape("%2C"), "name", "class", "onClick:", "openOn:", "button", "p:"],
 referencedClasses: ["Browser"]
+}),
+smalltalk.GitHubPage);
+
+smalltalk.addMethod(
+unescape('_renderRepositories'),
+smalltalk.method({
+selector: unescape('renderRepositories'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(unescape("https%3A//api.github.com/users/"), "__comma", [smalltalk.send(self, "_username", [])]), "__comma", [unescape("/repos")]), smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["GET"]),smalltalk.send("success", "__minus_gt", [(function(repositoryData, status, jqXHR){return smalltalk.send(self, "_renderRepositoryData_", [repositoryData]);})]),smalltalk.send("error", "__minus_gt", [(function(jqXHR, textStatus, errorThrown){return smalltalk.send(self, "_renderRepositoryError_", [errorThrown]);})])])]);
+return self;},
+args: [],
+source: unescape('renderRepositories%0A%0A%09jQuery%20%0A%09%09ajax%3A%20%27https%3A//api.github.com/users/%27%2C%20self%20username%2C%20%27/repos%27%0A%09%09options%3A%20%23%7B%09%0A%09%09%09%27type%27%20-%3E%20%27GET%27.%0A%09%09%09%27success%27%20-%3E%20%5B%3ArepositoryData%20%3Astatus%20%3AjqXHR%20%7C%20%0A%09%09%09%09self%20renderRepositoryData%3A%20repositoryData%20%5D.%0A%20%20%20%20%20%09%09%09%27error%27%20-%3E%5B%3AjqXHR%20%3AtextStatus%20%3AerrorThrown%20%7C%20%0A%09%09%09%09self%20renderRepositoryError%3A%20errorThrown%20%20%5D%7D.%0A%09%0A'),
+messageSends: ["ajax:options:", unescape("%2C"), "username", unescape("-%3E"), "renderRepositoryData:", "renderRepositoryError:"],
+referencedClasses: []
+}),
+smalltalk.GitHubPage);
+
+smalltalk.addMethod(
+unescape('_renderRepositoryData_'),
+smalltalk.method({
+selector: unescape('renderRepositoryData%3A'),
+category: 'rendering',
+fn: function (repositoryData){
+var self=this;
+var homepage=nil;
+smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(html){return smalltalk.send(html, "_ul_", [(function(){return smalltalk.send(repositoryData, "_do_", [(function(repo){return smalltalk.send(html, "_p_", [(function(){(function($rec){smalltalk.send($rec, "_href_", [smalltalk.send(repo, "_at_", ["html_url"])]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(html, "_strong_", [smalltalk.send(repo, "_name", [])]);})]);})(smalltalk.send(html, "_a", []));smalltalk.send((homepage=smalltalk.send(repo, "_homepage", [])), "_ifNotEmpty_", [(function(){smalltalk.send(html, "_with_", [unescape("%20%5B")]);(function($rec){smalltalk.send($rec, "_href_", [homepage]);return smalltalk.send($rec, "_with_", [homepage]);})(smalltalk.send(html, "_a", []));return smalltalk.send(html, "_with_", [unescape("%5D")]);})]);return (function($rec){smalltalk.send($rec, "_with_", [unescape("%20-%20")]);return smalltalk.send($rec, "_with_", [smalltalk.send(repo, "_description", [])]);})(html);})]);})]);})]);})]);
+return self;},
+args: ["repositoryData"],
+source: unescape('renderRepositoryData%3A%20repositoryData%0A%0A%09%7C%20homepage%20%7C%0A%09repositoryDiv%20contents%3A%20%5B%3A%20html%20%7C%0A%09%09html%20ul%3A%20%5B%0A%09%09%09repositoryData%20do%3A%20%5B%3Arepo%20%7C%20%0A%09%09%09%09html%20p%3A%20%5B%0A%09%09%09%09%09html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%09%09a%20href%3A%20%28repo%20at%3A%20%27html_url%27%29%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%20%20%20%20%20%20%20%20%09%09with%3A%20%5B%20html%20%20strong%3A%20repo%20name%20%5D.%0A%09%09%09%09%09%28homepage%20%3A%3D%20repo%20homepage%29%0A%09%09%09%09%09%09ifNotEmpty%3A%20%5B%0A%09%09%09%09%09%09%09html%20with%3A%20%27%20%5B%27.%0A%09%09%09%09%09%09%09html%0A%09%09%09%09%09%09%09%09a%20href%3A%20homepage%3B%0A%09%09%09%09%09%09%09%09with%3A%20homepage.%0A%09%09%09%09%09%09%09html%20with%3A%20%27%5D%27%5D.%0A%09%09%09%09%09html%0A%09%09%09%09%09%09with%3A%20%27%20-%20%27%3B%0A%09%09%09%09%09%09with%3A%20repo%20description%5D%5D%5D%5D%0A%0A%0A'),
+messageSends: ["contents:", "ul:", "do:", "p:", "href:", "at:", "with:", "strong:", "name", "a", "ifNotEmpty:", "homepage", "description"],
+referencedClasses: []
+}),
+smalltalk.GitHubPage);
+
+smalltalk.addMethod(
+unescape('_renderRepositoryError_'),
+smalltalk.method({
+selector: unescape('renderRepositoryError%3A'),
+category: 'rendering',
+fn: function (errorThrown){
+var self=this;
+smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [errorThrown]);})]);
+return self;},
+args: ["errorThrown"],
+source: unescape('renderRepositoryError%3A%20errorThrown%0A%0A%09repositoryDiv%20contents%3A%20%5B%3A%20html%20%7C%0A%09%09html%20%20with%3A%20errorThrown%20%5D%0A%0A%0A'),
+messageSends: ["contents:", "with:"],
+referencedClasses: []
 }),
 smalltalk.GitHubPage);
 
