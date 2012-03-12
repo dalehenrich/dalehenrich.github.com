@@ -14,6 +14,24 @@ initialize
 
 renderOn: html
 
-	'Hi there, world' asJQuery
+	html p with: [:h | 
+		h with: 'Hi there, world. This page is powered by '.
+                h 
+                        a href: 'http://amber-lang.net/'; 
+                        with: 'Amber Smalltalk'.
+                 h with: '.'].
+            html p with: [:h | 
+                  h with: 'If you''re new to Smalltalk, take an '.
+                  h
+                        a href: 'amber/learn.html'; 
+                        with: 'Amber-powered Smaltalk tutorial'.
+                 h with: ' right in your own browser!!'].
+             html p with: [:h |
+                 h with: 'If you want to see how this is done, ' .
+                 h
+                        a 
+                                with: 'browse the ', self class name, ' class';
+                                onClick: [ Browser openOn: self class ].
+    		h with: '.']
 ! !
 
