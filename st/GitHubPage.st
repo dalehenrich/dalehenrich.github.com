@@ -13,7 +13,7 @@ initialize
 !GitHubPage methodsFor: 'rendering'!
 
 renderOn: html
-	| repo |
+
 	html p with: [:h |  
 		h with: 'Hi there, world. This page is powered by '.
                 h 
@@ -33,11 +33,13 @@ renderOn: html
                                 with: 'Browse the ', self class name, ' class';
                                 onClick: [ Browser openOn: self class ].
     		h with: '.'].
-html p: 'Here''s a walkback to prove it''s Smalltalk'.
+        html p: 'Under Construction'.
 	html strong: 'Repositories'.
-	repo := (jQuery 
+	jQuery 
 		ajax: 'https://api.github.com/user/repos'
-		options: #{	'type' -> 'GET' }) at: 1.
-	html p: repo name; br.
+		options: #{	
+			'type' -> 'GET'.
+			'success' -> [ html p: 'fake repository' ].
+     			'error' ->[html p: 'none found' ]}
 ! !
 
