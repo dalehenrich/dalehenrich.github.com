@@ -88,13 +88,12 @@ renderOn: html
     		h with: '.'].
 	html p: 'If I were any kind of a web developer (Smalltalk is my game) this page would look a lot prettier.'.
 	html strong: 'Repositories'.
-html p:  'https://api.github.com/users/', self username, '/repos'.
 	jQuery 
 		ajax: 'https://api.github.com/users/', self username, '/repos'
 		options: #{	
 			'type' -> 'GET'.
 			'success' -> [:repositoryData :status :jqXHR | self renderRepositories: repositoryData On: html  ].
-     			'error' ->[html p: 'none found' ]}
+     			'error' ->[:jqXHR :textStatus :errorThrown | html p: 'none found: ', textStatus printString ]}
 !
 
 renderRepositories: repositoryData On: html
