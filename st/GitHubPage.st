@@ -134,12 +134,13 @@ getRepositories
 
 	jQuery 
 		ajax: 'https://api.github.com/users/', self username, '/repos'
-		options: #{	
+		options: #{
 			'type' -> 'GET'.
+			'dataType' -> 'jsonp'.
 			'success' -> [:repositoryData :status :jqXHR | 
-				self renderRepositoryData: repositoryData ].
-     			'error' ->[:jqXHR :textStatus :errorThrown | 
-				self renderRepositoryError: jqXHR responseText  ]}.
+				self renderRepositoryData: repositoryData data ].
+     			'error' ->[:jqXHR :status :error | 
+				self renderRepositoryError: jqXHR status printString  ]}.
 ! !
 
 !GitHubPage class methodsFor: 'instance creation'!
