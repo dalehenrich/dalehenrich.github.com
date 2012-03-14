@@ -104,10 +104,11 @@ renderBodyOn: html
 
 renderRepositoryData: repositoryData
 
-	| homepage |
+	| homepage sortedData |
+	sortedData := repositoryData asArray sort: [:a :b | a name <= b name ].
 	repositoryDiv contents: [: html |
 		html ul: [
-			repositoryData do: [:repo | 
+			sortedData do: [:repo | 
 				html p: [
 					html
                     		    		a href: (repo at: 'html_url'); 
