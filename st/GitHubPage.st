@@ -140,7 +140,7 @@ getRepositories
 			'success' -> [:repositoryData :status :jqXHR | 
 				self renderRepositoryData: repositoryData data ].
      			'error' ->[:jqXHR :status :error | 
-				self renderRepositoryError: jqXHR status printString  ]}.
+				self renderRepositoryError: status printString  ]}.
 ! !
 
 !GitHubPage class methodsFor: 'instance creation'!
