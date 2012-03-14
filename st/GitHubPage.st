@@ -124,10 +124,10 @@ renderRepositoryData: repositoryData
 						with: repo description]]]]
 !
 
-renderRepositoryError: errorThrown
+renderRepositoryError: aString
+	"append not replace"
 
-	repositoryDiv contents: [: html |
-		html  with: errorThrown ]
+	repositoryDiv with: aString
 !
 
 getRepositories

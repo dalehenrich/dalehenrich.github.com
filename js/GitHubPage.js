@@ -110,13 +110,13 @@ unescape('_renderRepositoryError_'),
 smalltalk.method({
 selector: unescape('renderRepositoryError%3A'),
 category: 'rendering',
-fn: function (errorThrown){
+fn: function (aString){
 var self=this;
-smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [errorThrown]);})]);
+smalltalk.send(self['@repositoryDiv'], "_with_", [aString]);
 return self;},
-args: ["errorThrown"],
-source: unescape('renderRepositoryError%3A%20errorThrown%0A%0A%09repositoryDiv%20contents%3A%20%5B%3A%20html%20%7C%0A%09%09html%20%20with%3A%20errorThrown%20%5D%0A%0A%0A'),
-messageSends: ["contents:", "with:"],
+args: ["aString"],
+source: unescape('renderRepositoryError%3A%20aString%0A%09%22append%20not%20replace%22%0A%0A%09repositoryDiv%20with%3A%20aString'),
+messageSends: ["with:"],
 referencedClasses: []
 }),
 smalltalk.GitHubPage);

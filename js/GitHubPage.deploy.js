@@ -79,9 +79,9 @@ smalltalk.addMethod(
 unescape('_renderRepositoryError_'),
 smalltalk.method({
 selector: unescape('renderRepositoryError%3A'),
-fn: function (errorThrown){
+fn: function (aString){
 var self=this;
-smalltalk.send(self['@repositoryDiv'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [errorThrown]);})]);
+smalltalk.send(self['@repositoryDiv'], "_with_", [aString]);
 return self;}
 }),
 smalltalk.GitHubPage);
