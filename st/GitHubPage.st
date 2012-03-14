@@ -62,12 +62,12 @@ sampleRepositoryResponse
 renderOn: html
 
 	self renderBodyOn: html.
-        html p with: [:h |
-                 h
-                        button
-                                with: 'Refresh repository list';
-                                onClick: [  repositoryDiv contents:  [:div | self getRepositories ] ]].
 	html strong: 'Repositories'.
+	html with: ' '.
+        html 
+        	button
+                with: 'Refresh repository list';
+                onClick: [  repositoryDiv contents:  [:div | self getRepositories ] ].
      	repositoryDiv := html div.
 	self getRepositories
 !
@@ -98,7 +98,11 @@ renderBodyOn: html
                         button
                                 with: 'Browse the ', self class name, ' class';
                                 onClick: [ Browser openOn: self class ].
-    		h with: '.'].
+    		h  with: ' and '.
+                h
+			a href: 'https://github.com/', self username, '/', self username, '.github.com';
+                        with: 'visit the github repository'.
+                h with: '.'].
 	html p: 'If I were any kind of a web developer (Smalltalk is my game) this page would look a lot prettier.'.
 !
 
