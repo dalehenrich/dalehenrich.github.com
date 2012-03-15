@@ -139,7 +139,7 @@ getRepositories
 		ajax: self repoUrl
 		options: #{
 			'type' -> 'GET'.
-			'dataType' -> 'json'.
+			'dataType' -> 'jsonp'.
 			'success' -> [:repositoryData :status :jqXHR | 
 				self renderRepositoryData: repositoryData data ].
      			'error' ->[:jqXHR :status :error | 
