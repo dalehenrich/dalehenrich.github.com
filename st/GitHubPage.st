@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'GitHubPage' properties: #{}!
 Widget subclass: #GitHubPage
-	instanceVariableNames: 'username repositoryDiv'
+	instanceVariableNames: 'username repositoryDiv userInfo'
 	category: 'GitHubPage'!
 
 !GitHubPage methodsFor: 'accessing'!
@@ -60,20 +60,18 @@ sampleRepositoryResponse
 !GitHubPage methodsFor: 'rendering'!
 
 renderOn: html
-
+ html div class:'container'; with:[ 
 	self renderBodyOn: html.
-	html strong: 'Repositories'.
-	html with: ' '.
-        html 
-        	button
-                with: 'Refresh repository list';
-                onClick: [  repositoryDiv contents:  [:div | self getRepositories ] ].
-     	repositoryDiv := html div.
-	self getRepositories
+	self renderRepositoryHeading: html.
+     	
+	repositoryDiv := html div id:'repos'.
+	self getRepositories.
+	self initializeMasonry.]
 !
 
 renderBodyOn: html
-
+	html h1: 'Dale Henrich''s GitHub Repositories'.
+	
 	html p with: [:h |  
 		h with: 'Hi there, world. This page is powered by '.
                 h 
@@ -103,30 +101,30 @@ renderBodyOn: html
 			a href: 'https://github.com/', self username, '/', self username, '.github.com';
                         with: 'visit the github repository'.
                 h with: '.'].
-	html p: 'If I were any kind of a web developer (Smalltalk is my game) this page would look a lot prettier.'.
 !
 
 renderRepositoryData: repositoryData
 
 	| homepage sortedData |
-	sortedData := repositoryData asArray sort: [:a :b | a name <= b name ].
+	sortedData := repositoryData asArray sort: [:a :b | a  name asUppercase <= b name asUppercase ].
 	repositoryDiv contents: [: html |
-		html ul: [
 			sortedData do: [:repo | 
-				html p: [
-					html
-                    		    		a href: (repo at: 'html_url'); 
-                	        		with: [ html  strong: repo name ].
-					(homepage := repo homepage)
-						ifNotEmpty: [
-							html with: ' ['.
+				html div class:'four columns repo'; with: [
+					html h4 with:[
+						html
+                    		    			a href: (repo at: 'html_url'); 
+                	        			with:  repo name ].
+					
+					html p: repo description.
+(homepage := repo homepage)
+						ifNotEmpty: [	
 							html
 								a href: homepage;
 								with: homepage.
-							html with: ']'].
-					html
-						with: ' - ';
-						with: repo description]]]]
+							].].
+	].
+self reloadMasonry.
+]
 !
 
 renderRepositoryError: aString
@@ -138,14 +136,71 @@ renderRepositoryError: aString
 getRepositories
 
 	jQuery 
-		ajax: 'https://api.github.com/users/', self username, '/repos'
+		ajax: self repoUrl
 		options: #{
 			'type' -> 'GET'.
-			'dataType' -> 'jsonp'.
+			'dataType' -> 'json'.
 			'success' -> [:repositoryData :status :jqXHR | 
 				self renderRepositoryData: repositoryData data ].
      			'error' ->[:jqXHR :status :error | 
 				self renderRepositoryError: status printString  ]}.
+!
+
+getUserInfo
+	
+	jQuery 
+		ajax: self userInfoUrl
+		options: #{
+			'type' -> 'GET'.
+			'dataType' -> 'jsonp'.
+			'success' -> [:repositoryData :status :jqXHR | 
+				 ^repositoryData data at:'name' ].
+     			'error' ->[:jqXHR :status :error | 
+				^'error getting your name.  check your username'  ]}.
+!
+
+apiUrl
+	^ 'https://api.github.com'
+!
+
+repoUrl
+	^self  userInfoUrl, '/repos'
+!
+
+userInfoUrl
+	^self apiUrl , '/users/', self username
+!
+
+renderUserData: repositoryData
+
+headline contents: [:html |
+	html h1 with:repositoryData at:'name'.
+			]
+!
+
+renderRepositoryHeading:html
+	html div class:'row'; with:[
+		html div class:'eight columns alpha'; with:[
+			html h2:'Repositories'].
+     		html div with:[   	
+			html 
+        			button
+				class:'refresh';
+                		with: 'Refresh repository list';
+                		onClick: [  repositoryDiv contents:  [:div | self getRepositories.
+													 ] ] ] ].
+!
+
+runMasonry
+	<$('#repos').masonry({itemSelector:'.repo' , columnWidth:10})>
+!
+
+initializeMasonry
+	<$('#repos').masonry({itemSelector:'.repo' , columnWidth:1})>
+!
+
+reloadMasonry
+	<$('#repos').masonry('reload')>
 ! !
 
 !GitHubPage class methodsFor: 'instance creation'!
