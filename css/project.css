@@ -14,3 +14,11 @@ button.refresh{
     float:right;
     margin-right:5px;
 }
+#jtalk  input[type="text"], 
+#jtalk  input[type="password"], 
+#jtalk  input[type="email"],
+#jtalk  textarea,
+#jtalk  select {
+    color:#000000;
+    display:inline-block;
+}
