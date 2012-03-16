@@ -18,4 +18,5 @@ button.refresh{
 #jtalk  input[type="textarea"],
 #jtalk  select {
     display:inline;
+    width:auto;
 }
